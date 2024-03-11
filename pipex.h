@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:15:04 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/10 21:25:10 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/11 15:51:03 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ typedef struct s_param {
 	int		infile_fd;
 	int		outfile_fd;
 }			t_param;
+
+void	preset_params(t_param *params, char **argv, char **envp);
 
 #endif
