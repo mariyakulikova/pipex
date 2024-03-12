@@ -9,6 +9,7 @@ HEADERS = pipex.h
 
 SRCS =	main.c \
 		params.c \
+		utils.c \
 
 OBJSDIR = ./objs/
 OBJSLIST = $(SRCS:.c=.o)

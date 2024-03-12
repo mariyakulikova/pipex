@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:15:04 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/11 15:51:03 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:49:03 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@ typedef struct s_param {
 }			t_param;
 
 void	preset_params(t_param *params, char **argv, char **envp);
+void	free_param(t_param *params);
+void	free_split(char **split);
+void	test(t_param *params);
 
 #endif
