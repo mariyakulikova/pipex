@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:29:57 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/12 13:02:05 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:08:45 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	free_param(t_param *params)
 {
 	free(params->path);
 	free_split(params->path_splited);
-	// free(params->path_splited);
 }
 
 static char	*get_path_value(char **envp)

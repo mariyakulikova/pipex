@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 12:37:23 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/12 15:26:31 by mkulikov         ###   ########.fr       */
+/*   Created: 2024/03/12 13:11:09 by mkulikov          #+#    #+#             */
+/*   Updated: 2024/03/12 15:21:38 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	free_split(char **split)
+void	pipex(t_param *params)
 {
-	int	i;
+	int		end[2];
 
-	i = 0;
-	while (*(split + i))
-	{
-		free(*(split + i));
-		i++;
-	}
-	free(split);
-}
 
-void	add_char(char **split, int c)
-{
-	
 }
