@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/pipex",
-			"args": [],
+			"args": ["${workspaceFolder}/infile", "wc -l", "ls -la", "${workspaceFolder}/outline"],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
 			"environment": [],

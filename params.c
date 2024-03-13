@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:29:57 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/13 14:10:19 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:36:29 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,26 @@
 
 void	free_param(t_param *params)
 {
+	int	i;
+
 	free_split(params->cmd_path);
+	i = 0;
+	while (*(params->cmds + i))
+	{
+		free_split(*(params->cmds + i));
+		i++;
+	}
+	free(params->cmds);
 }
 
-static void	*set_path_value(t_param *params, char **envp)
+static void	set_path_value(t_param *params, char **envp)
 {
 	if (envp == NULL)
 	{
 		perror("envp is NULL");
 		exit(EXIT_FAILURE);
 	}
+	params->path = NULL;
 	while (*envp)
 	{
 		if (ft_strncmp(*envp, "PATH=", 5) == 0)
@@ -33,7 +43,6 @@ static void	*set_path_value(t_param *params, char **envp)
 		}
 		envp++;
 	}
-	// params->path = NULL;
 }
 
 static void	open_files(char *infile, char *outfile, t_param *params)
@@ -52,9 +61,31 @@ static void	open_files(char *infile, char *outfile, t_param *params)
 	}
 }
 
-void	init_params(t_param *params, char **argv, char **envp)
+static void	parse_cmds(t_param *params, int argc, char **argv)
+{
+	int	size;
+	int	i;
+
+	size = argc - 3;
+	params->cmds = (char ***)malloc(sizeof(char **) * (size + 1));
+	*(params->cmds + size) = NULL;
+	i = 0;
+	while (i < size)
+	{
+		*(params->cmds + i) = ft_split(*(argv + 2 + i), ' ');
+		if (*(params->cmds + i) == NULL)
+		{
+			perror("Spliting error");
+			exit(EXIT_FAILURE);
+		}
+		i++;
+	}
+}
+
+void	parse_params(t_param *params, int argc, char **argv, char **envp)
 {
 	set_path_value(params, envp);
 	params->cmd_path = ft_split(params->path, ':');
 	open_files(*(argv + 1), *(argv + 4), params);
+	parse_cmds(params, argc, argv);
 }

@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:15:04 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/13 14:09:17 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:18:37 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,17 @@
 typedef struct s_param {
 	char	*path;
 	char	**cmd_path;
+	char	***cmds;
 	pid_t	pid_1;
 	pid_t	pid_2;
 	int		infile_fd;
 	int		outfile_fd;
 }			t_param;
 
-void	init_params(t_param *params, char **argv, char **envp);
+void	parse_params(t_param *params, int argc, char **argv, char **envp);
 void	free_param(t_param *params);
 void	free_split(char **split);
 void	test(t_param *params);
-void	pipex(t_param *params);
+// void	pipex(t_param *params);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:13:58 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/13 14:10:40 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:25:51 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ void	test(t_param *params)
 		printf("%s\n", *(params->cmd_path + i));
 		i++;
 	}
+	i = 0;
+	while (*(params->cmds + i))
+	{
+		int j = 0;
+		while (*(*(params->cmds + i) + j))
+		{
+			printf("%s ", *(*(params->cmds + i) + j));
+			printf("\n");
+			j++;
+		}
+		i++;
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -32,7 +44,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 5)
 		return (1);
-	init_params(&params, argv, envp);
+	parse_params(&params, argc, argv, envp);
 	test(&params); //TODO delete
 	// pipex(&params);
 	free_param(&params);
