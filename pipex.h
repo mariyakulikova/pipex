@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:15:04 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/13 11:48:23 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/13 14:09:17 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_param {
 	int		outfile_fd;
 }			t_param;
 
-int	preset_params(t_param *params, char **argv, char **envp);
+void	init_params(t_param *params, char **argv, char **envp);
 void	free_param(t_param *params);
 void	free_split(char **split);
 void	test(t_param *params);
