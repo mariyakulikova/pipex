@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:15:04 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/13 16:18:37 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:20:12 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	parse_params(t_param *params, int argc, char **argv, char **envp);
 void	free_param(t_param *params);
 void	free_split(char **split);
 void	test(t_param *params);
-// void	pipex(t_param *params);
+void	pipex(t_param *params);
+void	child(t_param *params, int pipe_fd[2]);
 
 #endif

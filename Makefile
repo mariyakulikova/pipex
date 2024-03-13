@@ -11,6 +11,7 @@ SRCS =	main.c \
 		params.c \
 		utils.c \
 		pipex.c \
+		child.c \
 		cmd.c \
 
 OBJSDIR = ./objs/
