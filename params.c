@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:29:57 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/12 13:08:45 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:48:46 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	free_param(t_param *params)
 {
-	free(params->path);
-	free_split(params->path_splited);
+	free_split(params->cmd_path);
 }
 
 static char	*get_path_value(char **envp)
@@ -30,30 +29,36 @@ static char	*get_path_value(char **envp)
 			path = *envp;
 		envp++;
 	}
-	return (ft_substr(path, 5, ft_strlen(path)));
+	path += 5;
+	return (path);
 }
 
-static void	open_files(char *infile, char *outfile, t_param *params)
+static int	open_files(char *infile, char *outfile, t_param *params)
 {
 	params->infile_fd = open(infile, O_RDONLY);
 	if (params->infile_fd == -1)
 	{
 		perror("Error opening file");
-		exit(EXIT_FAILURE);
+		return (1);
 	}
-	params->outfile_fd = open(infile, O_CREAT, O_RDONLY, O_TRUNC, 777);
+	params->outfile_fd = open(infile, O_CREAT, O_RDWR, O_TRUNC, 644);
 	if (params->outfile_fd == -1)
 	{
 		perror("Error opening file");
-		exit(EXIT_FAILURE);
+		return (1);
 	}
+	return (0);
 }
 
-void	preset_params(t_param *params, char **argv, char **envp)
+int	preset_params(t_param *params, char **argv, char **envp)
 {
 	params->path = get_path_value(envp);
-	if (params->path == NULL)
-		exit(EXIT_FAILURE);
-	params->path_splited = ft_split(params->path, ':');
-	open_files(*(argv + 1), *(argv + 4), params);
+	if (!params->path)
+		return (1);
+	params->cmd_path = ft_split(params->path, ':');
+	if (!params->cmd_path)
+		return (1);
+	if (open_files(*(argv + 1), *(argv + 4), params) == 1)
+		return (1);
+	return (0);
 }
