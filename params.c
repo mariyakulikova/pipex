@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:29:57 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/13 18:36:29 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:38:37 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ void	free_param(t_param *params)
 static void	set_path_value(t_param *params, char **envp)
 {
 	if (envp == NULL)
-	{
-		perror("envp is NULL");
-		exit(EXIT_FAILURE);
-	}
+		my_exit(params, "envp is NULL", EXIT_SUCCESS);
 	params->path = NULL;
 	while (*envp)
 	{
@@ -49,16 +46,10 @@ static void	open_files(char *infile, char *outfile, t_param *params)
 {
 	params->infile_fd = open(infile, O_RDONLY);
 	if (params->infile_fd == -1)
-	{
-		perror("Error opening file");
-		exit(EXIT_FAILURE);
-	}
+		my_exit(params, "Error opening file", EXIT_FAILURE);
 	params->outfile_fd = open(infile, O_CREAT, O_RDWR, O_TRUNC, 0644);
 	if (params->outfile_fd == -1)
-	{
-		perror("Error opening file");
-		exit(EXIT_FAILURE);
-	}
+		my_exit(params, "Error opening file", EXIT_FAILURE);
 }
 
 static void	parse_cmds(t_param *params, int argc, char **argv)
@@ -74,10 +65,7 @@ static void	parse_cmds(t_param *params, int argc, char **argv)
 	{
 		*(params->cmds + i) = ft_split(*(argv + 2 + i), ' ');
 		if (*(params->cmds + i) == NULL)
-		{
-			perror("Spliting error");
-			exit(EXIT_FAILURE);
-		}
+			my_exit(params, "Spliting error", EXIT_FAILURE);
 		i++;
 	}
 }

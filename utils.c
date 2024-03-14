@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:37:23 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/13 10:21:21 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:30:45 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	free_split(char **split)
 	free(split);
 }
 
-// void	add_char(char **split, int c)
-// {
-
-// }
+void	my_exit(t_param *params, char *str, int status)
+{
+	perror(str);
+	free_param(params);
+	exit(status);
+}
