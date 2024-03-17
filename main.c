@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:13:58 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/14 17:16:23 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:23:10 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,10 @@ int	main(int argc, char **argv, char **envp)
 	t_param	params;
 	int		i;
 
-	// if (argc != 5)
-	// 	return (1);
+	if (argc != 5)
+		return (1);
 	parse_params(&params, argc, argv, envp);
-	// test(&params); //TODO delete
 	pipex(&params);
-	printf("finish\n");
 	free_param(&params);
 	return (0);
 }

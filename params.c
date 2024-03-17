@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:29:57 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/14 15:38:37 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:04:16 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ static void	set_path_value(t_param *params, char **envp)
 
 static void	open_files(char *infile, char *outfile, t_param *params)
 {
+	printf("infile - %s\n", infile);
+	printf("outfile - %s\n", outfile);
 	params->infile_fd = open(infile, O_RDONLY);
 	if (params->infile_fd == -1)
-		my_exit(params, "Error opening file", EXIT_FAILURE);
-	params->outfile_fd = open(infile, O_CREAT, O_RDWR, O_TRUNC, 0644);
+		my_exit(params, "Error opening infile", EXIT_FAILURE);
+	params->outfile_fd = open(outfile, O_RDWR | O_TRUNC | O_CREAT, 0777);
 	if (params->outfile_fd == -1)
-		my_exit(params, "Error opening file", EXIT_FAILURE);
+		my_exit(params, "Error opening outfile", EXIT_FAILURE);
 }
 
 static void	parse_cmds(t_param *params, int argc, char **argv)
