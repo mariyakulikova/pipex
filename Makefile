@@ -8,7 +8,6 @@ HEADDIR = .
 HEADERS = pipex.h
 
 SRCS =	main.c \
-		params.c \
 		utils.c \
 		pipex.c \
 		cmd.c \

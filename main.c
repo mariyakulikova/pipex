@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:13:58 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/16 17:23:10 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/18 18:01:51 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	test(t_param *params)
 {
 	int	i = 0;
 	printf("%s\n infile %d\n outfile %d\n", params->path, params->infile_fd, params->outfile_fd);
-	if (*(params->cmd_path) == NULL)
+	if (*(params->cmds_path) == NULL)
 		printf("path_splited --------> NULL\n");
-	while (*(params->cmd_path + i))
+	while (*(params->cmds_path + i))
 	{
-		printf("%s\n", *(params->cmd_path + i));
+		printf("%s\n", *(params->cmds_path + i));
 		i++;
 	}
 	i = 0;
@@ -41,12 +41,18 @@ void	test(t_param *params)
 int	main(int argc, char **argv, char **envp)
 {
 	t_param	params;
-	int		i;
+	int		status;
 
 	if (argc != 5)
 		return (1);
-	parse_params(&params, argc, argv, envp);
+	set_path_value(&params, envp);
+	params.cmds_path = ft_split(params.path, ':');
+	params.envp = envp;
+	open_files(*(argv + 1), *(argv + 4), &params);
+	parse_cmds(&params, argc, argv);
 	pipex(&params);
+
+	printf("DOZHDALSYA\n");
 	free_param(&params);
 	return (0);
 }
