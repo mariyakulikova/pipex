@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:37:23 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/18 14:09:47 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:19:49 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ void	open_files(char *infile, char *outfile, t_param *params)
 	if (params->outfile_fd == -1)
 		my_exit(params, "Error opening outfile", EXIT_FAILURE);
 }
+
+// void	close_files(int fd1, int fd2)
+// {
+// 	close(fd1);
+// 	close(fd2);
+// }
 
 void	free_param(t_param *params)
 {

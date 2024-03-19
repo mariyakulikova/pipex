@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:15:04 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/18 18:00:59 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:14:25 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,19 @@
 # include "libft.h"
 
 typedef struct s_param {
+	pid_t	pid1;
+	pid_t	pid2;
 	char	*path;
 	char	**cmds_path;
 	char	***cmds;
-	pid_t	pid;
+	char	**envp;
 	int		infile_fd;
 	int		outfile_fd;
-	char	**envp;
+
 }			t_param;
 
 void	free_param(t_param *params);
 void	free_split(char **split);
-void	test(t_param *params);
 void	pipex(t_param *params);
 void	my_exit(t_param *params, char *str, int status);
 void	set_path_value(t_param *params, char **envp);
