@@ -1,17 +1,16 @@
-NAME = pipex_bonus
+NAME = pipex
 CC = cc
 CCFLAGS = -Wextra -Wall -Werror
 RM = rm -f
 DEBUG = -g
 
 HEADDIR = .
-HEADERS = pipex_bonus.h
+HEADERS = pipex.h
 
-SRCS =	cmd_bonus.c \
-		main_bonus.c \
-		param_bonus.c \
-		pipex_bonus.c \
-		utils_bonus.c \
+SRCS =	main.c \
+		utils.c \
+		pipex.c \
+		cmd.c \
 
 OBJSDIR = ./objs/
 OBJSLIST = $(SRCS:.c=.o)

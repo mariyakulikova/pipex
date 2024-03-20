@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:11:09 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/19 18:06:38 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:52:33 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void	child2(t_param *params, int end[2])
 void	pipex(t_param *params)
 {
 	int	end[2];
-	int	status;
 
 	if (pipe(end) == -1)
 		my_exit(params, "Pipe error", EXIT_FAILURE);
