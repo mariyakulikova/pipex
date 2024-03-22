@@ -12,6 +12,8 @@ SRCS =	cmd_bonus.c \
 		param_bonus.c \
 		pipex_bonus.c \
 		utils_bonus.c \
+		err_msg_bonus.c \
+		test.c \
 
 OBJSDIR = ./objs/
 OBJSLIST = $(SRCS:.c=.o)

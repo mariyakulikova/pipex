@@ -6,20 +6,20 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:51:52 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/20 16:30:53 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/22 18:31:26 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-void	waitpids(t_param *param, int size)
+void	close_pipes(t_param *param)
 {
 	int	i;
 
 	i = 0;
-	while (i < size)
+	while (i < (param->pipes_size))
 	{
-		waitpid(param->pids[i], NULL, 0);
+		close(*(param->pipes + i));
 		i++;
 	}
 }
@@ -27,53 +27,52 @@ void	waitpids(t_param *param, int size)
 static void	my_execve(t_param *param, char **cmd)
 {
 	char	*cmd_path;
-	printf("my_execve %s\n", cmd[0]);
 
 	cmd_path = get_cmd_path(param->cmds_path, cmd[0]);
 	if (cmd_path == NULL)
 		my_exit(param, cmd[0], EXIT_FAILURE);
 	if (execve(cmd_path, cmd, param->envp) == -1)
-		my_exit(param, "execve error", EXIT_FAILURE);
+		my_exit(param, ERR_EXEC, EXIT_FAILURE);
 }
 
-static void	child(t_param *param, int *end, int i)
+static int	my_dup(int in, int out)
 {
-	printf("%s", "YA TUT \n");
-	if (i == 0)
-	{
-		close(end[0]);
-		if (dup2(param->infile_fd, 0) == -1 || dup2(end[1], 1) == -1)
-			my_exit(param, "dup2 error", EXIT_FAILURE);
-	}
-	else if (i == param->proccesses_count - 2)
-	{
-		close(end[1]);
-		if (dup2(param->outfile_fd, 1) == -1 || dup2(end[0], 0) == -1)
-			my_exit(param, "dup2 error", EXIT_FAILURE);
-	}
+	int	fd1;
+	int	fd2;
+
+	fd1 = dup2(in, STDIN_FILENO);
+	fd2 = dup2(out, STDOUT_FILENO);
+	if (fd1 == -1 || fd2 == -1)
+		return (-1);
 	else
-	{
-		if (dup2(end[1], 1) == -1 || dup2(end[0], 0) == -1)
-			my_exit(param, "dup2 error", EXIT_FAILURE);
-	}
-	close_files(param, i);
-	my_execve(param, param->cmds[i]);
+		return (0);
 }
 
-void	pipex(t_param *param)
+void	child(t_param *param, int i)
 {
-	int	i;
-
-	i = 0;
-	while (i < param->proccesses_count)
+	param->pids[i] = fork();
+	if (param->pids[i] == -1)
+		my_exit(param, ERR_FORK, EXIT_FAILURE);
+	if (param->pids[i] == 0)
 	{
-		param->pids[i] = fork();
-		if (param->pids[i] == 0)
+		if (i == 0)
 		{
-			child(param, param->pipes[i], i);
-			break ;
+			if (my_dup(param->infile_fd, param->pipes[1]) == -1)
+				my_exit(param, ERR_DUP2, EXIT_FAILURE);
 		}
-		i++;
+		else if (i == param->cmd_num - 1)
+		{
+			if (my_dup(param->pipes[2 * i - 2], param->outfile_fd) == -1)
+				my_exit(param, ERR_DUP2, EXIT_FAILURE);
+		}
+		else
+		{
+			if (my_dup(param->pipes[2 * i - 2], param->pipes[2 * i + 1]) == -1)
+				my_exit(param, ERR_DUP2, EXIT_FAILURE);
+		}
+		close_pipes(param);
+		close(param->infile_fd);
+		close(param->outfile_fd);
+		my_execve(param, param->cmds[i]);
 	}
-	close_files(param, -1);
 }

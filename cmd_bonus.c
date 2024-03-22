@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:34 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/20 16:09:52 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:45:48 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,22 @@ char	*get_cmd_path(char **cmds_path, char *cmd)
 void	parse_cmds(t_param *params, int argc, char **argv)
 {
 	int	size;
+	int	shift;
 	int	i;
 
-	size = argc - 3;
+	size = params->cmd_num;
+	if (params->here_doc)
+		shift = 3;
+	else
+		shift = 2;
 	params->cmds = (char ***)malloc(sizeof(char **) * (size + 1));
 	*(params->cmds + size) = NULL;
 	i = 0;
 	while (i < size)
 	{
-		*(params->cmds + i) = ft_split(*(argv + 2 + i), ' ');
+		*(params->cmds + i) = ft_split(*(argv + shift + i), ' ');
 		if (*(params->cmds + i) == NULL)
-			my_exit(params, "Spliting error", EXIT_FAILURE);
+			my_exit(params, "Split error", EXIT_FAILURE);
 		i++;
 	}
 }
@@ -61,7 +66,7 @@ void	set_path_value(t_param *params, char **envp)
 	{
 		if (ft_strncmp(*envp, "PATH=", 5) == 0)
 		{
-			params->path = *envp;
+			params->path = *envp + 5;
 			break ;
 		}
 		envp++;
