@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:22:33 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/22 18:21:26 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/24 18:50:42 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	free_split(char **split)
 
 void	my_exit(t_param *params, char *str, int status)
 {
+	write(2, "Pipex: ", 8);
 	perror(str);
 	free_param(params);
 	exit(status);
@@ -34,22 +35,36 @@ void	my_exit(t_param *params, char *str, int status)
 
 void	open_files(char *infile, char *outfile, t_param *params)
 {
-	params->infile_fd = open(infile, O_RDONLY);
-	if (params->infile_fd == -1)
-		my_exit(params, "Error opening infile", EXIT_FAILURE);
-	params->outfile_fd = open(outfile, O_RDWR | O_TRUNC | O_CREAT, 0777);
-	if (params->outfile_fd == -1)
-		my_exit(params, "Error opening outfile", EXIT_FAILURE);
+	if (params->here_doc)
+	{
+		params->infile_fd = here_doc(params);
+		params->outfile_fd = open(outfile, O_RDWR | O_APPEND | O_CREAT, 0644);
+		if (params->outfile_fd == -1)
+			my_exit(params, "Error opening outfile", EXIT_FAILURE);
+	}
+	else
+	{
+		params->infile_fd = open(infile, O_RDONLY);
+		if (params->infile_fd == -1)
+			my_exit(params, "Error opening infile", EXIT_FAILURE);
+		params->outfile_fd = open(outfile, O_RDWR | O_TRUNC | O_CREAT, 0644);
+		if (params->outfile_fd == -1)
+			my_exit(params, "Error opening outfile", EXIT_FAILURE);
+	}
 }
 
-void	waitpids(t_param *param, int size)
+void	close_files(t_param *param)
 {
-	int	i;
+	close(param->infile_fd);
+	close(param->outfile_fd);
+	// if (param->here_doc)
+	// 	unlink(".here_doc");
+}
 
-	i = 0;
-	while (i < size)
-	{
-		waitpid(param->pids[i], NULL, 0);
-		i++;
-	}
+void	err_msg(char *str)
+{
+	size_t	len;
+
+	len = ft_strlen(str);
+	write(2, str, len);
 }

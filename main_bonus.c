@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:30:50 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/22 18:23:30 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:27:23 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	while (i < param->cmd_num)
 		child(param, i++);
 	close_pipes(param);
-	close(param->infile_fd);
-	close(param->outfile_fd);
+	close_files(param);
 	waitpids(param, param->cmd_num);
 	free_param(param);
 	return (EXIT_SUCCESS);

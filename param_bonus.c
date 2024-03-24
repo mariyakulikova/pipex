@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:09:25 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/22 18:29:51 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:21:59 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,21 @@ void	free_param(t_param *params)
 
 
 	i = 0;
-	while (*(params->cmds + i))
+	if (params->cmds != NULL)
 	{
-		free_split(*(params->cmds + i));
-		i++;
+		while (*(params->cmds + i))
+		{
+			free_split(*(params->cmds + i));
+			i++;
+		}
+		free(params->cmds);
 	}
-	free(params->cmds);
-	free_split(params->cmds_path);
-	free(params->pids);
-	free(params->pipes);
+	if (params->cmds_path != NULL)
+		free_split(params->cmds_path);
+	if (params->pids != NULL)
+		free(params->pids);
+	if (params->pipes != NULL)
+		free(params->pipes);
 	free(params);
 }
 
@@ -44,6 +50,7 @@ t_param	*param_init(void)
 	param->cmds = NULL;
 	param->envp = NULL;
 	param->here_doc = 0;
+	param->limiter = NULL;
 	return (param);
 }
 
@@ -65,13 +72,18 @@ static int	*pipes_init(t_param *param, int size)
 	return (pipes);
 }
 
+
+
 void	set_param(t_param *param, int argc, char **argv, char **envp)
 {
 	int	size;
 	int	i;
 
 	if (!ft_strncmp("here_doc", argv[1], 9))
+	{
 		param->here_doc = 1;
+		param->limiter = argv[2];
+	}
 	size = argc - param->here_doc - 3;
 	param->cmd_num = size;
 	param->pipes_size = (size - 1) * 2;

@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:31:50 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/22 18:31:17 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/24 18:38:35 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@
 # include <sys/wait.h>
 # include "libft.h"
 
+# define BUFF_SIZE 10
 # define ERR_ARGS "Invalid number of arguments.\n"
 # define ERR_PIPE "Pipe error"
 # define ERR_DUP2 "Dup2 error"
 # define ERR_FORK "Fork error"
 # define ERR_EXEC "Execve error"
+# define ERR_OPEN "File opening error"
+# define ERR_READ "Reading error"
 
 
 typedef struct s_param {
@@ -38,6 +41,7 @@ typedef struct s_param {
 	int		cmd_num;
 	int		pipes_size;
 	int		here_doc;
+	char	*limiter;
 }			t_param;
 
 t_param	*param_init(void);
@@ -53,5 +57,7 @@ void	waitpids(t_param *param, int size);
 void	err_msg(char *str);
 void	close_pipes(t_param *param);
 void	child(t_param *param, int i);
+int		here_doc(t_param *param);
+void	close_files(t_param *param);
 
 #endif

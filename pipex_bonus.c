@@ -6,11 +6,23 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:51:52 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/22 18:31:26 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:27:43 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
+
+void	waitpids(t_param *param, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		waitpid(param->pids[i], NULL, 0);
+		i++;
+	}
+}
 
 void	close_pipes(t_param *param)
 {
@@ -71,8 +83,7 @@ void	child(t_param *param, int i)
 				my_exit(param, ERR_DUP2, EXIT_FAILURE);
 		}
 		close_pipes(param);
-		close(param->infile_fd);
-		close(param->outfile_fd);
+		close_files(param);
 		my_execve(param, param->cmds[i]);
 	}
 }
