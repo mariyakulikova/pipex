@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:22:33 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/25 11:43:24 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:51:26 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_split(char **split)
 
 void	my_exit(t_param *params, char *str, int status)
 {
-	write(2, "Pipex: ", 8);
+	write(2, "pipex: ", 8);
 	perror(str);
 	free_param(params);
 	exit(status);
@@ -40,16 +40,16 @@ void	open_files(char *infile, char *outfile, t_param *params)
 		params->infile_fd = here_doc(params);
 		params->outfile_fd = open(outfile, O_RDWR | O_APPEND | O_CREAT, 0644);
 		if (params->outfile_fd == -1)
-			my_exit(params, "Error opening outfile", EXIT_FAILURE);
+			my_exit(params, outfile, EXIT_FAILURE);
 	}
 	else
 	{
 		params->infile_fd = open(infile, O_RDONLY);
 		if (params->infile_fd == -1)
-			my_exit(params, "Error opening infile", EXIT_FAILURE);
+			my_exit(params, infile, EXIT_FAILURE);
 		params->outfile_fd = open(outfile, O_RDWR | O_TRUNC | O_CREAT, 0644);
 		if (params->outfile_fd == -1)
-			my_exit(params, "Error opening outfile", EXIT_FAILURE);
+			my_exit(params, outfile, EXIT_FAILURE);
 	}
 }
 

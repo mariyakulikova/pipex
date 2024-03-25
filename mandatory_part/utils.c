@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:37:23 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/24 16:13:28 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:52:18 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	open_files(char *infile, char *outfile, t_param *params)
 {
 	params->infile_fd = open(infile, O_RDONLY);
 	if (params->infile_fd == -1)
-		my_exit(params, "Error opening infile", EXIT_FAILURE);
+		my_exit(params, infile, EXIT_FAILURE);
 	params->outfile_fd = open(outfile, O_RDWR | O_TRUNC | O_CREAT, 0777);
 	if (params->outfile_fd == -1)
-		my_exit(params, "Error opening outfile", EXIT_FAILURE);
+		my_exit(params, outfile, EXIT_FAILURE);
 }
 
 void	free_param(t_param *params)
