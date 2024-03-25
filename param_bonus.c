@@ -6,34 +6,36 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:09:25 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/25 11:34:02 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/25 11:58:17 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-void	free_param(t_param *params)
+void	free_param(t_param *param)
 {
 	int	i;
 
 
 	i = 0;
-	if (params->cmds != NULL)
+	if (param->cmds != NULL)
 	{
-		while (*(params->cmds + i))
+		while (*(param->cmds + i))
 		{
-			free_split(*(params->cmds + i));
+			free_split(*(param->cmds + i));
 			i++;
 		}
-		free(params->cmds);
+		free(param->cmds);
 	}
-	if (params->cmds_path != NULL)
-		free_split(params->cmds_path);
-	if (params->pids != NULL)
-		free(params->pids);
-	if (params->pipes != NULL)
-		free(params->pipes);
-	free(params);
+	if (param->cmds_path != NULL)
+		free_split(param->cmds_path);
+	if (param->pids != NULL)
+		free(param->pids);
+	if (param->pipes != NULL)
+		free(param->pipes);
+	if (param->limiter != NULL)
+		free(param->limiter);
+	free(param);
 }
 
 t_param	*param_init(void)
@@ -80,7 +82,11 @@ void	set_param(t_param *param, int argc, char **argv, char **envp)
 	int	i;
 
 	if (param->here_doc)
-		param->limiter = argv[2];
+	{
+		param->limiter = ft_strjoin(argv[2], "\n");
+		if (!param->limiter)
+			exit (EXIT_FAILURE);
+	}
 	size = argc - param->here_doc - 3;
 	param->cmd_num = size;
 	param->pipes_size = (size - 1) * 2;
