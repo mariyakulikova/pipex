@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:14:41 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/24 18:48:28 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/25 11:45:24 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,22 @@ int	here_doc(t_param *param)
 	int		fd;
 	char	*line;
 
-	fd = open(".here_doc", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	fd = open(TMP_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 		my_exit(param, ERR_OPEN, EXIT_FAILURE);
 	while (1)
 	{
-		write(1, "heredoc> ", 9);
+		write(1, "> ", 3);
 		line  = get_next_line(0);
 		if (!ft_strncmp(line, param->limiter, ft_strlen(param->limiter)))
 			break ;
-		printf("%s", line);
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
+	close(fd);
+	fd = open(TMP_FILE, O_RDONLY);
+	if (fd == -1)
+		my_exit(param, ERR_OPEN, EXIT_FAILURE);
+	free(line);
 	return (fd);
 }

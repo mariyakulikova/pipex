@@ -6,18 +6,21 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:30:50 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/25 11:13:56 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/25 11:35:09 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-static int	is_argc_valid(int argc, char **argv)
+static int	is_argc_valid(t_param *param, int argc, char **argv)
 {
 	int	min_valid_amount;
 
 	if (!ft_strcmp(argv[1], "here_doc"))
+	{
+		param->here_doc = 1;
 		min_valid_amount = 6;
+	}
 	else
 		min_valid_amount = 5;
 	if (argc < min_valid_amount)
@@ -31,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	int		i;
 
 	param = param_init();
-	if (is_argc_valid(argc, argv) == -1)
+	if (is_argc_valid(param, argc, argv) == -1)
 	{
 		err_msg(ERR_ARGS);
 		return (EXIT_FAILURE);
