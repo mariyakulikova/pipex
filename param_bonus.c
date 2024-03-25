@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:09:25 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/24 17:21:59 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/25 11:07:59 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,8 @@ void	set_param(t_param *param, int argc, char **argv, char **envp)
 	int	size;
 	int	i;
 
-	if (!ft_strncmp("here_doc", argv[1], 9))
-	{
-		param->here_doc = 1;
+	if (param->here_doc)
 		param->limiter = argv[2];
-	}
 	size = argc - param->here_doc - 3;
 	param->cmd_num = size;
 	param->pipes_size = (size - 1) * 2;

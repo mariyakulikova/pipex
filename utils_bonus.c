@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:22:33 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/24 18:50:42 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/25 11:02:02 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	close_files(t_param *param)
 {
 	close(param->infile_fd);
 	close(param->outfile_fd);
-	// if (param->here_doc)
-	// 	unlink(".here_doc");
+	if (param->here_doc)
+		unlink(".here_doc");
 }
 
 void	err_msg(char *str)
