@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:31:50 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/25 11:43:13 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/25 15:39:41 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 # define BUFF_SIZE 10
 # define TMP_FILE ".temp"
-# define ERR_ARGS "Invalid number of arguments.\n"
+# define ERR_ARGS "Invalid number of arguments\n"
 # define ERR_PIPE "Pipe error"
 # define ERR_DUP2 "Dup2 error"
 # define ERR_FORK "Fork error"

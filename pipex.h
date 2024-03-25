@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:15:04 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/25 15:33:52 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/25 15:39:36 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/wait.h>
 # include "libft.h"
 
-# define ERR_ARGS "Invalid number of arguments.\n"
+# define ERR_ARGS "Invalid number of arguments\n"
 
 typedef struct s_param {
 	pid_t	pid1;
