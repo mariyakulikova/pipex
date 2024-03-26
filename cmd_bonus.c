@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:24:34 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/25 15:13:33 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:46:45 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_cmd_path(char **cmds_path, char *cmd)
 	char	*cmd_path;
 	char	*temp;
 
-	if (access(cmd, F_OK | X_OK) == 0)
+	if (access(cmd, F_OK) == 0)
 		return (cmd);
 	i = 0;
 	while (*(cmds_path + i))
@@ -26,7 +26,7 @@ char	*get_cmd_path(char **cmds_path, char *cmd)
 		temp = ft_strjoin(*(cmds_path + i), "/");
 		cmd_path = ft_strjoin(temp, cmd);
 		free(temp);
-		if (access(cmd_path, F_OK | X_OK) == 0)
+		if (access(cmd_path, F_OK) == 0)
 			return (cmd_path);
 		free(cmd_path);
 		i++;
@@ -52,7 +52,7 @@ void	parse_cmds(t_param *params, int argc, char **argv)
 	{
 		*(params->cmds + i) = ft_split(*(argv + shift + i), ' ');
 		if (*(params->cmds + i) == NULL)
-			my_exit(params, "Split error", EXIT_FAILURE);
+			my_exit(params, ERR_SPLT, NULL);
 		i++;
 	}
 }
@@ -60,7 +60,7 @@ void	parse_cmds(t_param *params, int argc, char **argv)
 void	set_path_value(t_param *params, char **envp)
 {
 	if (envp == NULL)
-		my_exit(params, "envp is NULL", EXIT_SUCCESS);
+		my_exit(params, ERR_ENVP, NULL);
 	params->path = NULL;
 	while (*envp)
 	{

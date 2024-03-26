@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:13:58 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/25 15:34:20 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:53:40 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_param	params;
-	int		status;
 
 	if (argc != 5)
 	{

@@ -6,12 +6,14 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:31:50 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/26 12:25:08 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:27:47 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_BONUS_H
 # define PIPEX_BONUS_H
+# include <string.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -28,6 +30,9 @@
 # define ERR_EXEC "Execve error"
 # define ERR_OPEN "File opening error"
 # define ERR_READ "Reading error"
+# define ERR_CMD "command not found"
+# define ERR_SPLT "Split error"
+# define ERR_ENVP "envp is NULL"
 
 typedef struct s_param {
 	pid_t	*pids;
@@ -48,13 +53,12 @@ t_param	*param_init(void);
 void	set_param(t_param *param, int argc, char **argv, char **envp);
 void	free_param(t_param *params);
 void	free_split(char **split);
-void	my_exit(t_param *params, char *str, int status);
+void	my_exit(t_param *params, char *str, char *name);
 void	open_files(char *infile, char *outfile, t_param *params);
 void	parse_cmds(t_param *params, int argc, char **argv);
 void	set_path_value(t_param *params, char **envp);
 char	*get_cmd_path(char **cmds_path, char *cmd);
 void	waitpids(t_param *param, int size);
-void	err_msg(char *str);
 void	close_pipes(t_param *param);
 void	child(t_param *param, int i);
 int		here_doc(t_param *param);

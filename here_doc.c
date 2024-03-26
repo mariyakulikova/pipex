@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:14:41 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/26 12:22:35 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:06:47 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	here_doc(t_param *param)
 
 	fd = open(TMP_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
-		my_exit(param, ERR_OPEN, EXIT_FAILURE);
+		my_exit(param, ERR_OPEN, TMP_FILE);
 	while (1)
 	{
 		write(1, "> ", 3);
@@ -98,7 +98,7 @@ int	here_doc(t_param *param)
 	close(fd);
 	fd = open(TMP_FILE, O_RDONLY);
 	if (fd == -1)
-		my_exit(param, ERR_OPEN, EXIT_FAILURE);
+		my_exit(param, ERR_OPEN, TMP_FILE);
 	free(line);
 	return (fd);
 }

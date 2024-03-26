@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:30:50 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/25 11:35:09 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:34:58 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	main(int argc, char **argv, char **envp)
 	param = param_init();
 	if (is_argc_valid(param, argc, argv) == -1)
 	{
-		err_msg(ERR_ARGS);
+		write(2, ERR_ARGS, ft_strlen(ERR_ARGS));
+		free(param);
 		return (EXIT_FAILURE);
 	}
 	set_param(param, argc, argv, envp);

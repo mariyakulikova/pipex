@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:09:25 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/26 12:23:42 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:07:10 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	*pipes_init(t_param *param, int size)
 	while (i < size)
 	{
 		if (pipe(pipes + i) < 0)
-			my_exit(param, ERR_PIPE, EXIT_FAILURE);
+			my_exit(param, ERR_PIPE, NULL);
 		i += 2;
 	}
 	return (pipes);
@@ -82,7 +82,7 @@ void	set_param(t_param *param, int argc, char **argv, char **envp)
 	{
 		param->limiter = ft_strjoin(argv[2], "\n");
 		if (!param->limiter)
-			exit (EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 	}
 	size = argc - param->here_doc - 3;
 	param->cmd_num = size;
@@ -90,7 +90,7 @@ void	set_param(t_param *param, int argc, char **argv, char **envp)
 	open_files(*(argv + 1), *(argv + argc - 1), param);
 	param->pids = (pid_t *)malloc(sizeof(pid_t) * size);
 	if (!param->pids)
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	param->envp = envp;
 	set_path_value(param, envp);
 	param->cmds_path = ft_split(param->path, ':');
