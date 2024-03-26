@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:51:52 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/25 15:10:07 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:25:34 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void	my_execve(t_param *param, char **cmd)
 		printf("TUTAAAAAAAAAA\n");
 		my_exit(param, cmd[0], EXIT_FAILURE);
 	}
-
 	if (execve(cmd_path, cmd, param->envp) == -1)
 		my_exit(param, ERR_EXEC, EXIT_FAILURE);
 }

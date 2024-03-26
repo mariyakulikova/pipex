@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:14:41 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/25 11:55:11 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:22:35 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	here_doc(t_param *param)
 	while (1)
 	{
 		write(1, "> ", 3);
-		line  = get_next_line(0);
+		line = get_next_line(0);
 		if (!ft_strcmp(line, param->limiter))
 			break ;
 		write(fd, line, ft_strlen(line));

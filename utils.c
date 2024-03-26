@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 12:37:23 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/25 14:52:18 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:24:06 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	free_split(char **split)
 
 void	my_exit(t_param *params, char *str, int status)
 {
-
 	perror(str);
 	free_param(params);
 	exit(status);

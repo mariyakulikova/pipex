@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:31:50 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/25 15:39:41 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:25:08 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # define ERR_EXEC "Execve error"
 # define ERR_OPEN "File opening error"
 # define ERR_READ "Reading error"
-
 
 typedef struct s_param {
 	pid_t	*pids;

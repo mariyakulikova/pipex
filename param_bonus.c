@@ -6,7 +6,7 @@
 /*   By: mkulikov <mkulikov@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:09:25 by mkulikov          #+#    #+#             */
-/*   Updated: 2024/03/25 11:58:17 by mkulikov         ###   ########.fr       */
+/*   Updated: 2024/03/26 12:23:42 by mkulikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	free_param(t_param *param)
 {
 	int	i;
-
 
 	i = 0;
 	if (param->cmds != NULL)
@@ -73,8 +72,6 @@ static int	*pipes_init(t_param *param, int size)
 	}
 	return (pipes);
 }
-
-
 
 void	set_param(t_param *param, int argc, char **argv, char **envp)
 {
