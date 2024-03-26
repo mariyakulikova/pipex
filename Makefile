@@ -58,6 +58,7 @@ $(OBJSDIR_BONUS)%.o: %.c $(HEADERS_BONUS)
 
 clean:
 	$(RM) -r $(OBJSDIR)
+	$(RM) -r $(OBJSDIR_BONUS)
 	make -C $(LIBFTDIR) clean
 
 fclean: clean
